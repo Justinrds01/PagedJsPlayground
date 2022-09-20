@@ -1,0 +1,19 @@
+@media print {
+    body{
+        width: 21cm;
+        height: 29.7cm;
+        padding-left: 30mm;
+        padding-right: 30mm;
+        padding-bottom: 45mm;
+        /* change the margins as you want them to be. */
+   }
+}
+
+div.chapter, div.appendix {
+    margin-top: 45mm;
+    page-break-after: always;
+}
+
+div.titlepage {
+    @page: blank;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "pagedjs_playground",
+  "version": "1.0.0",
+  "description": "Testing out paged js and its cli?",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "paged",
+    "js",
+    "node",
+    "cli"
+  ],
+  "author": "Justin",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "html-pdf": "^3.0.1",
+    "http-server": "^14.1.1",
+    "puppeteer": "^17.1.3",
+    "webpage": "^0.3.0"
+  },
+  "type": "module"
+}
