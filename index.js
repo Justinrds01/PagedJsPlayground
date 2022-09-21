@@ -14,6 +14,7 @@ import httpServer from "http-server";
     4. Stop the http server
 */
 const __dirname = process.cwd();
+console.log("dir: " + __dirname);
 const server = httpServer.createServer({ root: __dirname });
 server.listen(8080, async () => {
   console.log("Server is running on port 8080");
