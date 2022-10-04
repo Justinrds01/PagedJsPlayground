@@ -1,18 +1,22 @@
 // import { exec } from "child_process";
 // import pdf from "html-pdf";
-import fs from "fs";
-import { exec, spawn, execFile } from "child_process";
+import fs from "fs-extra";
+import { v4 as uuid } from "uuid";
 import puppeteer from "puppeteer";
 import httpServer from "http-server";
+import jsDom from "jsdom";
+// html processing: add unique id's to all elements
+const html = await fs.promises.readFile("index.html", "utf8");
+const dom = new jsDom.JSDOM(html);
+const { document } = dom.window;
+const elements = document.querySelectorAll("*");
+elements.forEach((element) => {
+  element.setAttribute("id", `abb-${uuid()}`);
+});
+const htmlWithIds = dom.serialize();
+// write html to file
+await fs.promises.writeFile("index.html", htmlWithIds);
 
-// Problem: Toc script should be executed before paged js script
-/*
-    Steps:
-    1. Start http server to serve the html file
-    2. Open the html file in the headless browser
-    3. Make the pdf
-    4. Stop the http server
-*/
 const __dirname = process.cwd();
 console.log("dir: " + __dirname);
 const server = httpServer.createServer({ root: __dirname });

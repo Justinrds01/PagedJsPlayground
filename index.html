@@ -1,45 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Document</title>
-    <script src="./js/paged.polyfill.js"></script>
-    <script src="./js/createToc.js"></script>
-    <script>
-      class handlers extends Paged.Handler {
+<html lang="en" id="abb-ccef5fcd-56ce-4d3d-b27a-d3f8aa0ddf91">
+  <head id="abb-effb992d-3a1f-4272-822c-5fc0a680775e">
+    <meta charset="UTF-8" id="abb-58b99db2-78e9-49eb-8871-14a3af86f7d8" />
+    <title id="abb-70d65067-37b6-4d98-bd40-6f3303d948ec">Document</title>
+    <script
+      src="./js/paged.polyfill.js"
+      id="abb-8f02a4e8-adea-4f9a-ba08-5b6d9a95984c"
+    ></script>
+    <script
+      src="./js/createToc.js"
+      id="abb-31812112-f027-4e7d-971a-41057d78e367"
+    ></script>
+    <script
+      src="./js/editPages.js"
+      id="abb-8d972d40-a21a-45e7-8e3c-802f8d33c3fa"
+    ></script>
+    <script
+      src="./js/refinePage.js"
+      id="abb-ab6971a2-1cc7-44d2-97de-b52afb9e5023"
+    ></script>
+    <script id="abb-6a4c25e2-b453-41ef-b747-9bf3b515a5cd">
+      let page = 1;
+      let position = 0; // top-left
+      let _content;
+
+      class customHandler extends Paged.Handler {
         constructor(chunker, polisher, caller) {
           super(chunker, polisher, caller);
         }
+
         beforeParsed(content) {
-          createToc({
-            content: content,
-            tocElement: "#toc",
-            titleElements: ["h1", "h2"],
-          });
+          console.log("beforeParsed", content);
+          _content = content;
+        }
+
+        afterRendered(pages) {
+          console.log("afterRendered", pages);
+          console.log("afterRendered", _content);
+
+          let pageNr = 0;
+          let position = 0;
+          while (pageNr < pages.length) {
+            let page = pages[pageNr];
+            editPages(pageNr, position, pages);
+            // reload paged polyfill
+            pageNr++;
+          }
         }
       }
-      Paged.registerHandlers(handlers);
+      Paged.registerHandlers(customHandler);
     </script>
-    <link href="./css/interface.css" rel="stylesheet" type="text/css" />
+
+    <link
+      href="./css/interface.css"
+      rel="stylesheet"
+      type="text/css"
+      id="abb-5c4ca42f-23bc-482c-af53-397cc4ac6f8b"
+    />
+    <link
+      href="./custom-css.css"
+      rel="stylesheet"
+      type="text/css"
+      id="abb-f787c604-241f-43bc-b15a-a16d7baf911f"
+    />
   </head>
-  <body>
-    <div id="toc">
-      <h1>Contents</h1>
+  <body id="abb-4505c4a7-73c2-4668-a534-f7d304746d59">
+    <div id="abb-8165129a-7253-43f0-957d-63b6856e7e8c">
+      <h1 id="abb-dd441269-98b5-4c8f-ada1-11b2313117ee">Contents</h1>
     </div>
 
-    <h1>Cheese</h1>
-    <p>Cheese is delicious, why?</p>
-    <p>
+    <h1 id="abb-50a8809a-c353-4022-9d08-105c19959cbf">Cheese</h1>
+    <p id="abb-1af5b1fa-6c2b-422c-9f34-5384c3b245d4">
+      Cheese is delicious, why?
+    </p>
+    <p id="abb-26e9efe0-2212-4807-ac2c-8c1587125dc5">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam
       assumenda quaerat id provident non earum, beatae adipisci enim blanditiis
       et autem, quas doloribus velit saepe in animi! Debitis, placeat? Lorem
       ipsum dolor sit amet consectetur adipisicing elit. Deserunt blanditiis
       obcaecati sed? Ratione assumenda inventore illum unde in impedit! Minus
-      nulla natus officiis expedita nihil quo eius doloremque a reprehenderit
-      ullam? Repellendus dolorem quis deserunt.
     </p>
-    <h2>Ingredients</h2>
-    <p>
+    <h2 id="abb-9a2f4073-97e8-44a6-9087-16196ae4cc66">Yes</h2>
+    <p id="abb-2c8dd024-3001-4ddd-831b-0ae8b52c361f">
       I dont know milk and stuff? Lorem ipsum dolor sit amet consectetur
       adipisicing elit. Suscipit voluptate qui error accusantium culpa aut illo
       earum numquam, dignissimos adipisci corporis minus, excepturi ipsa
@@ -55,8 +97,25 @@
       deleniti suscipit quisquam aperiam nihil quibusdam mollitia voluptates
       eaque.
     </p>
-    <h2>Instructions</h2>
-    <p>
+    <h2 id="abb-ed4711c6-023e-4af5-82fd-975de4ea0ec1">Ingredients</h2>
+    <p id="abb-3b5401cb-2780-47e1-948b-54c3d7ca96bc">
+      I dont know milk and stuff? Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Suscipit voluptate qui error accusantium culpa aut illo
+      earum numquam, dignissimos adipisci corporis minus, excepturi ipsa
+      voluptates a consequatur laboriosam vel perspiciatis. Lorem ipsum dolor
+      sit amet consectetur adipisicing elit. Suscipit, sapiente. Necessitatibus
+      voluptas suscipit explicabo esse quasi, doloribus aut nisi laborum tenetur
+      non odit quo fuga voluptate. Quae voluptatibus similique harum! Lorem
+      ipsum dolor sit amet, consectetur adipisicing elit. Quam, tenetur
+      repellendus? Architecto nemo enim totam beatae velit, quas, eos rerum
+      aspernatur laborum possimus error eius, illum in ut sint quo! Lorem ipsum
+      dolor, sit amet consectetur adipisicing elit. Rem dolore tempora provident
+      atque laborum perferendis dolorem, alias dignissimos labore eos sint
+      deleniti suscipit quisquam aperiam nihil quibusdam mollitia voluptates
+      eaque.
+    </p>
+    <h2 id="abb-8a57a806-62ad-47f7-ada8-783917e21711">Instructions</h2>
+    <p id="abb-940f9260-e649-452b-9762-f4b2a5bc04d9">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ut
       dignissimos! Dolorum consequatur natus debitis temporibus, modi provident,
       quaerat omnis repellendus accusantium vero, iste aliquam culpa sequi
@@ -77,8 +136,8 @@
       eligendi cum, enim provident ea possimus maiores excepturi totam
       consectetur autem tempore ex dignissimos sed iste ducimus est.
     </p>
-    <h2>Notes</h2>
-    <p>
+    <h2 id="abb-455f1c05-eea8-4c95-8357-8c92ca2ddc10">Notes</h2>
+    <p id="abb-f7a91ce1-d83e-48b5-be11-561e7b6cc3c8">
       It is very hot Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       Aut, minus? Voluptate tenetur perferendis, delectus rem eaque enim facilis
       quia omnis aliquam eum eos maxime veritatis debitis odit dignissimos ipsum
@@ -88,9 +147,11 @@
       necessitatibus velit.
     </p>
 
-    <h1>Chicken</h1>
-    <p>Chicken is delicious, why?</p>
-    <p>
+    <h1 id="abb-648693d3-15c5-486b-a882-99e38ef30f44">Chicken</h1>
+    <p id="abb-746387e3-56f2-4a3b-b629-d3dfb44d245f">
+      Chicken is delicious, why?
+    </p>
+    <p id="abb-8935f38b-0f98-4380-9748-23c9b9ec1573">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam
       assumenda quaerat id provident non earum, beatae adipisci enim blanditiis
       et autem, quas doloribus velit saepe in animi! Debitis, placeat? Lorem
@@ -102,17 +163,20 @@
       corrupti exercitationem sequi asperiores rerum dolorum reprehenderit
       ullam? Repellendus dolorem quis deserunt.
     </p>
-    <h2>Ingredients</h2>
-    <p>I dont know chicken and stuff?</p>
-    <h2>Instructions</h2>
-    <p>
+    <h2 id="abb-56287bd7-edc8-46db-9982-3b12918e181f">Ingredients</h2>
+    <p id="abb-9455d7e0-68ef-4250-916f-b65d9539584c">
+      I dont know chicken and stuff?
+    </p>
+    <h2 id="abb-09b857a3-77a3-4495-b303-530878a565de">Instructions</h2>
+    <p id="abb-2998f8cd-bf83-49a1-8a9f-b2f1eceb1590">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi cum fuga
       delectus nesciunt officia reiciendis aut cupiditate provident eum natus,
-      saepe veniam dolorem deleniti molestias consequatur. Quae, in nemo!
-      Assumenda.
+      saepe veniam dolorem deleniti molestias consequatur. Quae, in nemo!Lorem
+      ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam assumenda
+      quaerat id provident non earum, beatae adipisci enim blanditiis et autem,
     </p>
-    <h2>Notes</h2>
-    <p>
+    <h2 id="abb-eb0bd923-da92-4599-b975-e62e02b72988">Notes</h2>
+    <p id="abb-24f57d8e-e3b1-4e4e-8c5f-a636e3366608">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam
       assumenda quaerat id provident non earum, beatae adipisci enim blanditiis
       et autem, quas doloribus velit saepe in animi! Debitis, placeat? Lorem
@@ -125,9 +189,11 @@
       ullam? Repellendus dolorem quis deserunt.
     </p>
 
-    <h1>Kebab</h1>
-    <p>Kebab is delicious, why?</p>
-    <p>
+    <h1 id="abb-fa013851-6e74-4756-bc38-5291b8c0f154">Kebab</h1>
+    <p id="abb-948c6f43-6a54-4f32-8976-937cea594f2a">
+      Kebab is delicious, why?
+    </p>
+    <p id="abb-3e540a8e-3e9a-4366-8d70-3f4985f77511">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam
       assumenda quaerat id provident non earum, beatae adipisci enim blanditiis
       et autem, quas doloribus velit saepe in animi! Debitis, placeat? Lorem
@@ -139,17 +205,19 @@
       corrupti exercitationem sequi asperiores rerum dolorum reprehenderit
       ullam? Repellendus dolorem quis deserunt.
     </p>
-    <h2>Ingredients</h2>
-    <p>I dont know chicken and stuff?</p>
-    <h2>Instructions</h2>
-    <p>
+    <h2 id="abb-0f3c613e-c691-4dab-8606-49fe3a5f2898">Ingredients</h2>
+    <p id="abb-eb435f5b-b2ea-43c5-ad52-06177a0e880b">
+      I dont know chicken and stuff?
+    </p>
+    <h2 id="abb-460dff98-6a5d-452d-9b8a-564ea4ff8ad2">Instructions</h2>
+    <p id="abb-53d8aa6f-70ee-40e1-b372-4a2bbd4c8b20">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi cum fuga
       delectus nesciunt officia reiciendis aut cupiditate provident eum natus,
       saepe veniam dolorem deleniti molestias consequatur. Quae, in nemo!
       Assumenda.
     </p>
-    <h2>Notes</h2>
-    <p>
+    <h2 id="abb-928a4467-1f01-4319-99e9-fb9ccf34153d">Notes</h2>
+    <p id="abb-ac1f4e8f-33d8-4314-a183-1bf1e38dd2f4">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ipsam
       assumenda quaerat id provident non earum, beatae adipisci enim blanditiis
       et autem, quas doloribus velit saepe in animi! Debitis, placeat? Lorem
@@ -161,7 +229,30 @@
       corrupti exercitationem sequi asperiores rerum dolorum reprehenderit
       ullam? Repellendus dolorem quis deserunt.
     </p>
+    <img
+      src="./assets/abb.png"
+      alt=""
+      style="width: 50%"
+      id="abb-4facf6bb-63c7-4883-b628-fb80a138e62b"
+    />
 
-    <img src="./assets/abb.png" alt="" style="width: 50%" />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+      id="abb-1d510b5a-42f8-4ea6-8304-1e80f1eb519d"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+      id="abb-1749c090-47f7-4b4d-9bee-f9f300b5adac"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+      id="abb-1bd88c7f-e602-4d18-8b01-3b5bce3e643e"
+    ></script>
   </body>
 </html>

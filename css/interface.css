@@ -20,16 +20,6 @@
   break-after: always;
 } */
 
-h1 {
-  /* break-after: always; */
-  break-before: always;
-}
-
-/* A break right after a paragraph title doesn't look good */
-h2 {
-  break-after: avoid;
-}
-
 #toc li a::after {
   content: target-counter(attr(href), page);
   float: right;
@@ -37,6 +27,7 @@ h2 {
 
 #toc {
   break-after: always;
+  column-span: all;
 }
 
 /* set the style for the list numbering to none */
@@ -124,6 +115,25 @@ h2 {
   right: 0;
 }
 
+/* Make toc relative to the page */
+#list-toc-generated {
+  position: relative;
+}
+
+.pagedjs_area div {
+  height: 100%;
+  column-count: 2;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-fill: auto;
+  column-gap: 2em;
+}
+
+h1 {
+  break-before: always;
+  column-span: all;
+}
+
 /* To define how the book look on the screen: */
 @media screen {
   body {
@@ -145,7 +155,6 @@ h2 {
     flex-shrink: 0;
     flex-grow: 0;
     margin-top: 10mm;
-    column-count: 2;
   }
 
   .pagedjs_first_page {
@@ -181,15 +190,14 @@ h2 {
     left: calc(var(--pagedjs-bleed-left) * -1);
   }
 
-  /* div:not([class]) {
-        height: 100%;
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        column-fill: auto;
-    } */
-
-  /* show the margin-box */
+  .pagedjs_area div {
+    height: 100%;
+    column-count: 2;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-fill: auto;
+    column-gap: 2em;
+  }
 
   .pagedjs_margin-top-left-corner-holder,
   .pagedjs_margin-top,
